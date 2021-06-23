@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "5353d07b-6fae-4d8d-84e9-6d86779f74f7",
+		"name": "Voyager Digital SDET Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Feeds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Voyager Digital SDET Hiring Test",
+							"",
+							"//GitHub Apps API Response Test",
+							"pm.test(\"Status Code returns 200\", () => {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//Testing response times",
+							"pm.test(\"Response time is less than 200ms\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"//Testing Headers",
+							"pm.test(\"Content-Type header is present\", () => {",
+							"  pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Server header is present\", () => {",
+							"  pm.response.to.have.header(\"Server\");",
+							"});",
+							"pm.test(\"Date header is present\", () => {",
+							"  pm.response.to.have.header(\"Date\");",
+							"});",
+							"",
+							"//Testing values types",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.timeline_url).to.be.a(\"string\");",
+							"  pm.expect(jsonData.user_url).to.be.an(\"string\");",
+							"  pm.expect(jsonData.security_advisories_url).to.be.an(\"string\");",
+							"",
+							"  pm.expect(jsonData._links).to.be.an(\"object\");",
+							"  pm.expect(jsonData._links.timeline).to.be.an(\"object\");",
+							"  pm.expect(jsonData._links.timeline.href).to.be.an(\"string\");",
+							"  pm.expect(jsonData._links.timeline.type).to.be.an(\"string\");",
+							"  pm.expect(jsonData._links.user.href).to.be.an(\"string\");",
+							"  pm.expect(jsonData._links.user.type).to.be.an(\"string\");",
+							"  pm.expect(jsonData._links.security_advisories.href).to.be.an(\"string\");",
+							"  pm.expect(jsonData._links.security_advisories.type).to.be.an(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.github.v3+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.github.com/feeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"feeds"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
